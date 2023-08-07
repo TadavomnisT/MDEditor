@@ -1,2 +1,2 @@
 # MDEditor
-A free and opensource MarkDown editor, with the support of Exporting HTML.
+A free and opensource MarkDown editor, with the support of exporting HTML.
