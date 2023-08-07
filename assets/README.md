@@ -26,7 +26,7 @@ License:
 
 ## highlight.min.js
 
-This file is cloned from : https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+This file is cloned from : https://raw.githubusercontent.com/jamiemcg/Remarkable/master/data/media/highlight.min.js
 
 License:
 
