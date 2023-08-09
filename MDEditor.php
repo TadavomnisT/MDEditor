@@ -202,7 +202,25 @@ class MDEditor
     //Creates last part of HTML
     public function createFooter()
     {
-        # code...
+        $footer = '</div><script src="';
+        $footer .= $this->asset_highlight_min_js;
+        $footer .= '"></script><script>hljs.initHighlightingOnLoad();</script><script src="';
+        $footer .= $this->asset_mathJax_js;
+        $footer .= '" type="text/javascript"></script>';
+        $footer .= '<script type="text/javascript">MathJax.Hub.Config({"showProcessingMessages" : false,"messageStyle" : "none","tex2jax": { inlineMath: [ [ "$", "$" ] ] }});</script>';
+        $footer .= '<script>document.addEventListener("DOMContentLoaded", ev => document.body.querySelectorAll("#container > *").forEach(elm => elm.setAttribute("dir", "auto")));</script>';
+        
+        if(
+            $this->getDocumentStyle() == "toggle_darkmodeblack_white" ||
+            $this->getDocumentStyle() == "toggle_darkmodegray_white" ||
+            $this->getDocumentStyle() == "toggle_darkmodeblack_dark" ||
+            $this->getDocumentStyle() == "toggle_darkmodegray_dark"
+        )
+        $footer .= '<script>const toggleButton = document.getElementById("dark-mode-toggle");const container = document.getElementById("container");const body = document.body;if (toggleButton.checked) {enableDarkMode();}toggleButton.addEventListener("click", () => {if (!toggleButton.checked) {disableDarkMode();} else {enableDarkMode();}});function enableDarkMode() {body.classList.add("dark-mode");localStorage.setItem("darkModeEnabled", true);}function disableDarkMode() {body.classList.remove("dark-mode");localStorage.removeItem("darkModeEnabled");}</script>';
+        
+        $footer .= '</body></html>';
+
+        return $footer;
     }
 }
 
