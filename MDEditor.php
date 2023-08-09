@@ -7,11 +7,13 @@ class MDEditor
     private $parser;
     private $document_style;
     private $document_title;
+    private $local_style;
 
-    public function __construct() {
+    public function __construct( string $documnet_style = "toggle_darkmode_white", string $document_title = "Documnet", bool $local_style = false ) {
         $this->parser = new Parsedown();
-        $this->documnet_style = "toggle_darkmode_white"; //Default value
-        $this->document_title = "Documnet"; //Default value
+        $this->documnet_style   = $documnet_style;  //Default value
+        $this->document_title   = $document_title;  //Default value
+        $this->local_style      = $local_style;     //Default value
     }
 
     public function md2html(string $md_file_path)
@@ -34,12 +36,22 @@ class MDEditor
                        "light" 
                        "dark_black" 
                        "dark_gray" 
-                       "toggle_darkmode_white" 
-                       "toggle_darkmode_dark" 
+                       "toggle_darkmodeblack_white" 
+                       "toggle_darkmodegray_white" 
+                       "toggle_darkmodeblack_dark" 
+                       "toggle_darkmodegray_dark" 
     */
     public function setDocumnetStyle( string $style )
     {
-        if( $style == "light" || $style == "dark_black" || $style == "dark_gray" || $style == "toggle_darkmode_white" || $style == "toggle_darkmode_dark"  )
+        if(
+            $style == "light" ||
+            $style == "dark_black" ||
+            $style == "dark_gray" ||
+            $style == "toggle_darkmodeblack_white" ||
+            $style == "toggle_darkmodegray_white" ||
+            $style == "toggle_darkmodeblack_dark" ||
+            $style == "toggle_darkmodegray_dark"
+        )
         $this->documnet_style = $style;
         else{
             throw new Exception("Inappropriate documnet style.", 1);
@@ -59,6 +71,32 @@ class MDEditor
     {
         $this->document_title = $title;
         return true;
+    }
+
+    //Getter for $local_style
+    public function getLocalStyle()
+    {
+        return $this->local_style;
+    }
+
+    //Setter for $local_style
+    public function setLocalStyle( bool $localstyle )
+    {
+        $this->local_style = $localstyle;
+        return true;
+    }
+
+    //Creates first part of HTML 
+    public function createHeader()
+    {
+        $header = '<!DOCTYPE HTML><html> <head>  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  <meta charset="utf-8"/>  <title>';
+        $header .= $this->getDocumnetTitle();
+    }
+
+    //Creates last part of HTML
+    public function createFooter()
+    {
+        # code...
     }
 }
 
