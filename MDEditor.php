@@ -183,7 +183,7 @@ class MDEditor
         if( $this->getDocumentStyle() == "dark_gray" )
         $header .= '.dark-mode{background-color:#333;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}';
 
-        if( $this->getDocumentStyle() == "dark_gray" )
+        if( $this->getDocumentStyle() == "dark_black" )
         $header .= '.dark-mode{background-color:#000;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}';
 
         $header .= '</style></head><body><div id="container">';
