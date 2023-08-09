@@ -18,11 +18,12 @@ class MDEditor
     private $local_highlightjs_default_min_css;
 
 
-    public function __construct( string $documnet_style = "toggle_darkmodeblack_white", string $document_title = "Documnet", $document_width = "default", bool $local_style = false, string $overflow = "break" ) {
+    //Constructor
+    public function __construct( string $document_style = "toggle_darkmodeblack_white", string $document_title = "Document", $document_width = "default", bool $local_style = false, string $overflow = "break" ) {
         $this->parser = new Parsedown();
-        $this->setDocumnetStyle($documnet_style);   //Default value
-        $this->setDocumnetTitle($document_title);   //Default value
-        $this->setDocumnetWidth($document_width);   //Default value
+        $this->setDocumentStyle($document_style);   //Default value
+        $this->setDocumentTitle($document_title);   //Default value
+        $this->setDocumentWidth($document_width);   //Default value
         $this->setLocalStyle($local_style);         //Default value
         $this->setOverflow($overflow);              //Default value
         $this->asset_mathJax_js                     = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/MathJax.js";
@@ -34,6 +35,7 @@ class MDEditor
 
     }
 
+    //Converts Markdown to HTML
     public function md2html(string $md_file_path)
     {
         if (!file_exists( $md_file_path ))
@@ -43,9 +45,9 @@ class MDEditor
     }
 
     //Getter for $document_style
-    public function getDocumnetStyle()
+    public function getDocumentStyle()
     {
-        return $this->documnet_style;
+        return $this->document_style;
     }
 
     //Setter for $document_style
@@ -59,7 +61,7 @@ class MDEditor
                        "toggle_darkmodeblack_dark" 
                        "toggle_darkmodegray_dark" 
     */
-    public function setDocumnetStyle( string $style )
+    public function setDocumentStyle( string $style )
     {
         if(
             $style == "light" ||
@@ -70,29 +72,29 @@ class MDEditor
             $style == "toggle_darkmodeblack_dark" ||
             $style == "toggle_darkmodegray_dark"
         )
-        $this->documnet_style = $style;
+        $this->document_style = $style;
         else{
-            throw new Exception("Inappropriate documnet style.", 1);
+            throw new Exception("Inappropriate document style.", 1);
             return false;
         }
         return true;
     }
 
     //Getter for $document_title
-    public function getDocumnetTitle()
+    public function getDocumentTitle()
     {
         return $this->document_title;
     }
 
     //Setter for $document_title
-    public function setDocumnetTitle( string $title )
+    public function setDocumentTitle( string $title )
     {
         $this->document_title = $title;
         return true;
     }
 
     //Getter for $document_width
-    public function getDocumnetWidth()
+    public function getDocumentWidth()
     {
         return $this->document_width;
     }
@@ -103,15 +105,15 @@ class MDEditor
                         "default"
                         Positive int numbers representing pixels
     */
-    public function setDocumnetWidth( string $document_width )
+    public function setDocumentWidth( string $document_width )
     {
         if ($document_width == "default")
-            $this->document_width = "100%";
+            $this->document_width = "default";
         else{
             if ( (string)(int)$document_width == $document_width && (int)$document_width > 0  )
                 $this->document_width = $document_width . "px";
             else{
-                throw new Exception("Inappropriate documnet width.", 1);
+                throw new Exception("Inappropriate document width.", 1);
                 return false;
             }
         }
@@ -159,7 +161,7 @@ class MDEditor
     public function createHeader()
     {
         $header = '<!DOCTYPE HTML><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta charset="utf-8"/><title>';
-        $header .= $this->getDocumnetTitle();
+        $header .= $this->getDocumentTitle();
         $header .= '</title> <link href="';
         $header .= $this->asset_highlightjs_default_min_css;
         $header .= '"stylesheet"/><style type="text/css">';
@@ -168,7 +170,33 @@ class MDEditor
         'code,tt{margin:0 2px;padding:0 5px;overflow-wrap:break-word;border:1px solid #eaeaea;border-radius:3px}tt{white-space:nowrap}':
         'code,tt{display:block;overflow:auto hidden;margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;border-radius:3px}';
         $header .= 'pre code{white-space:pre;border:none}.highlight pre,pre{border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;margin:.8em 0 1em;border-radius:3px;max-width:calc(100% - 2px)}';
-        $header .= '';
+        $header .= ( $this->getDocumentWidth() == "default" )?
+        '#container{width:100%;}':
+        '#container{width:' . $this->getDocumentWidth() . 'px;margin: 0 auto;}';
+
+        if( $this->getDocumentStyle() == "toggle_darkmodegray_white" || $this->getDocumentStyle() == "toggle_darkmodegray_dark" )
+        $header .= '.dark-mode{background-color:#333;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}*,*:before,*:after{box-sizing:border-box;}.toggle{cursor:pointer;display:inline-block;}.toggle-switch{display:inline-block;background:#ccc;border-radius:16px;width:58px;height:32px;position:relative;vertical-align:middle;transition:background 0.25s;}.toggle-switch:before,.toggle-switch:after{content:"";}.toggle-switch:before{display:block;background:linear-gradient(to bottom,#fff 0%,#eee 100%);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,0.25);width:24px;height:24px;position:absolute;top:4px;left:4px;transition:left 0.25s;}.toggle:hover .toggle-switch:before{background:linear-gradient(to bottom,#fff 0%,#fff 100%);box-shadow:0 0 0 1px rgba(0,0,0,0.5);}.toggle-checkbox:checked + .toggle-switch{background:#3e96df;}.toggle-checkbox:checked + .toggle-switch:before{left:30px;}.toggle-checkbox{position:absolute;visibility:hidden;}.toggle-label{margin-left:5px;position:relative;top:2px;}';
+     
+        if( $this->getDocumentStyle() == "toggle_darkmodeblack_white" || $this->getDocumentStyle() == "toggle_darkmodeblack_dark" )
+        $header .= '.dark-mode{background-color:#000;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}*,*:before,*:after{box-sizing:border-box;}.toggle{cursor:pointer;display:inline-block;}.toggle-switch{display:inline-block;background:#ccc;border-radius:16px;width:58px;height:32px;position:relative;vertical-align:middle;transition:background 0.25s;}.toggle-switch:before,.toggle-switch:after{content:"";}.toggle-switch:before{display:block;background:linear-gradient(to bottom,#fff 0%,#eee 100%);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,0.25);width:24px;height:24px;position:absolute;top:4px;left:4px;transition:left 0.25s;}.toggle:hover .toggle-switch:before{background:linear-gradient(to bottom,#fff 0%,#fff 100%);box-shadow:0 0 0 1px rgba(0,0,0,0.5);}.toggle-checkbox:checked + .toggle-switch{background:#3e96df;}.toggle-checkbox:checked + .toggle-switch:before{left:30px;}.toggle-checkbox{position:absolute;visibility:hidden;}.toggle-label{margin-left:5px;position:relative;top:2px;}';
+    
+        if( $this->getDocumentStyle() == "dark_gray" )
+        $header .= '.dark-mode{background-color:#333;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}';
+
+        if( $this->getDocumentStyle() == "dark_gray" )
+        $header .= '.dark-mode{background-color:#000;color:#fff;}.dark-mode code{background-color:#212121;color:rgb(0,183,255);}';
+
+        $header .= '</style></head><body><div id="container">';
+
+        if(
+            $this->getDocumentStyle() == "toggle_darkmodeblack_white" ||
+            $this->getDocumentStyle() == "toggle_darkmodegray_white" ||
+            $this->getDocumentStyle() == "toggle_darkmodeblack_dark" ||
+            $this->getDocumentStyle() == "toggle_darkmodegray_dark"
+        )
+        $header .= '<div id="container"><label class="toggle"><input class="toggle-checkbox" type="checkbox" id="dark-mode-toggle"><div class="toggle-switch"></div><span class="toggle-label">Dark mode</span></label>';
+
+        return $header;
     }
 
     //Creates last part of HTML
