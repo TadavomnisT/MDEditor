@@ -7,6 +7,7 @@ class MDEditor
     private $parser;
     private $document_style;
     private $document_title;
+    private $document_width; //In pixels
     private $local_style;
     private $overflow;
     private $asset_mathJax_js;
@@ -17,12 +18,13 @@ class MDEditor
     private $local_highlightjs_default_min_css;
 
 
-    public function __construct( string $documnet_style = "toggle_darkmode_white", string $document_title = "Documnet", bool $local_style = false, string $overflow = "break" ) {
+    public function __construct( string $documnet_style = "toggle_darkmodeblack_white", string $document_title = "Documnet", $document_width = "default", bool $local_style = false, string $overflow = "break" ) {
         $this->parser = new Parsedown();
-        $this->documnet_style   = $documnet_style;  //Default value
-        $this->document_title   = $document_title;  //Default value
-        $this->local_style      = $local_style;     //Default value
-        $this->overflow      = $overflow;     //Default value
+        $this->setDocumnetStyle($documnet_style);   //Default value
+        $this->setDocumnetTitle($document_title);   //Default value
+        $this->setDocumnetWidth($document_width);   //Default value
+        $this->setLocalStyle($local_style);         //Default value
+        $this->setOverflow($overflow);              //Default value
         $this->asset_mathJax_js                     = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/MathJax.js";
         $this->asset_highlight_min_js               = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/highlight.min.js";
         $this->asset_highlightjs_default_min_css    = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/css/highlightjs.default.min.css";
@@ -89,6 +91,33 @@ class MDEditor
         return true;
     }
 
+    //Getter for $document_width
+    public function getDocumnetWidth()
+    {
+        return $this->document_width;
+    }
+
+    //Setter for $document_width
+    /*
+        Valid inputs:
+                        "default"
+                        Positive int numbers representing pixels
+    */
+    public function setDocumnetWidth( string $document_width )
+    {
+        if ($document_width == "default")
+            $this->document_width = "100%";
+        else{
+            if ( (string)(int)$document_width == $document_width && (int)$document_width > 0  )
+                $this->document_width = $document_width . "px";
+            else{
+                throw new Exception("Inappropriate documnet width.", 1);
+                return false;
+            }
+        }
+        return true;
+    }
+
     //Getter for $local_style
     public function getLocalStyle()
     {
@@ -109,9 +138,20 @@ class MDEditor
     }
 
     //Setter for $overflow
-    public function setOverflow( bool $overflow )
+     /*
+        Valid inputs:
+                       "scroll" 
+                       "break" 
+
+    */
+    public function setOverflow( string $overflow )
     {
+        if($overflow == "scroll" || $overflow == "break")
         $this->overflow = $overflow;
+        else{
+            throw new Exception("Inappropriate overflow format.", 1);
+            return false;
+        }
         return true;
     }
 
@@ -124,6 +164,10 @@ class MDEditor
         $header .= $this->asset_highlightjs_default_min_css;
         $header .= '"stylesheet"/><style type="text/css">';
         $header .= '*,pre code,table,table tr{padding:0}hr,html{overflow:hidden}*{box-sizing:border-box;outline:0;margin:0}body,html{position:relative;width:100vw;height:100vh}html{color-scheme:light}body{padding:10px 15px;overflow:hidden auto;overflow-wrap:break-word;word-wrap:break-word;font:16px/1.4 Helvetica,Arial,sans-serif;color:#333}body,html,table tr{background-color:#fff}.highlight pre,code,pre,tt{background-color:#f8f8f8;direction:ltr!important}table tr :is(th,td){border:1px solid #ccc;text-align:left;padding:6px 13px;margin:0}strong,table tr th{font-weight:700}h1{font-size:2em;margin:.67em 0;text-align:center}h2{font-size:1.75em}h3{font-size:1.5em}h4{font-size:1.25em}h1,h2,h3,h4,h5,h6{position:relative;box-sizing:content-box;font-weight:700;padding:15px 0;line-height:1.1}h1,h2{border-bottom:1px solid #eee}hr{height:0;margin:15px 0;border:0;border-bottom:1px solid #ddd}a{color:#4183c4}a.absent{color:#c00}ol,ul{padding-left:15px;margin:0 7px}ol{list-style-type:lower-roman}table tr{border-top:1px solid #ccc;margin:0}table tr:nth-child(2n){background-color:#aaa}table tr :is(th,td) :first-child{margin-top:0}table tr :is(th,td) :last-child{margin-bottom:0}img{max-width:100%;pointer-events:none}blockquote{padding:0 15px;border-left:4px solid #ccc}';
+        $header .= ($this->getOverflow() == "break" )?
+        'code,tt{margin:0 2px;padding:0 5px;overflow-wrap:break-word;border:1px solid #eaeaea;border-radius:3px}tt{white-space:nowrap}':
+        'code,tt{display:block;overflow:auto hidden;margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;border-radius:3px}';
+        $header .= 'pre code{white-space:pre;border:none}.highlight pre,pre{border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;margin:.8em 0 1em;border-radius:3px;max-width:calc(100% - 2px)}';
         $header .= '';
     }
 
