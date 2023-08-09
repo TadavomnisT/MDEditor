@@ -29,9 +29,9 @@ class MDEditor
         $this->asset_mathJax_js                     = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/MathJax.js";
         $this->asset_highlight_min_js               = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/highlight.min.js";
         $this->asset_highlightjs_default_min_css    = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/css/highlightjs.default.min.css";
-        $this->local_mathJax_js                     = "./assets/js/MathJax.js";
-        $this->local_highlight_min_js               = "./assets/js/highlight.min.js";
-        $this->local_highlightjs_default_min_css    = "./assets/css/highlightjs.default.min.css";
+        $this->local_mathJax_js                     = realpath( "./assets/js/MathJax.js" );
+        $this->local_highlight_min_js               = realpath( "./assets/js/highlight.min.js");
+        $this->local_highlightjs_default_min_css    = realpath( "./assets/css/highlightjs.default.min.css");
 
     }
 
@@ -111,7 +111,7 @@ class MDEditor
             $this->document_width = "default";
         else{
             if ( (string)(int)$document_width == $document_width && (int)$document_width > 0  )
-                $this->document_width = $document_width . "px";
+                $this->document_width = $document_width;
             else{
                 throw new Exception("Inappropriate document width.", 1);
                 return false;
@@ -188,13 +188,11 @@ class MDEditor
 
         $header .= '</style></head><body><div id="container">';
 
-        if(
-            $this->getDocumentStyle() == "toggle_darkmodeblack_white" ||
-            $this->getDocumentStyle() == "toggle_darkmodegray_white" ||
-            $this->getDocumentStyle() == "toggle_darkmodeblack_dark" ||
-            $this->getDocumentStyle() == "toggle_darkmodegray_dark"
-        )
+        if( $this->getDocumentStyle() == "toggle_darkmodeblack_white" || $this->getDocumentStyle() == "toggle_darkmodegray_white" )
         $header .= '<div id="container"><label class="toggle"><input class="toggle-checkbox" type="checkbox" id="dark-mode-toggle"><div class="toggle-switch"></div><span class="toggle-label">Dark mode</span></label>';
+            
+        if( $this->getDocumentStyle() == "toggle_darkmodeblack_dark" || $this->getDocumentStyle() == "toggle_darkmodegray_dark" )
+        $header .= '<div id="container"><label class="toggle"><input class="toggle-checkbox" type="checkbox" checked="checked" id="dark-mode-toggle"><div class="toggle-switch"></div><span class="toggle-label">Dark mode</span></label>';
 
         return $header;
     }
