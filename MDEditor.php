@@ -41,7 +41,7 @@ class MDEditor
         if (!file_exists( $md_file_path ))
             throw new Exception("File does not exist.", 1);
         $markdown = file_get_contents( $md_file_path );
-        return $this->parser->text($markdown); //HTML
+        return  $this->createHeader() . $this->parser->text($markdown) . $this->createFooter(); //HTML
     }
 
     //Getter for $document_style
@@ -163,8 +163,8 @@ class MDEditor
         $header = '<!DOCTYPE HTML><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta charset="utf-8"/><title>';
         $header .= $this->getDocumentTitle();
         $header .= '</title> <link href="';
-        $header .= $this->asset_highlightjs_default_min_css;
-        $header .= '"stylesheet"/><style type="text/css">';
+        $header .= $this->local_highlightjs_default_min_css;
+        $header .= '" rel="stylesheet"/><style type="text/css">';
         $header .= '*,pre code,table,table tr{padding:0}hr,html{overflow:hidden}*{box-sizing:border-box;outline:0;margin:0}body,html{position:relative;width:100vw;height:100vh}html{color-scheme:light}body{padding:10px 15px;overflow:hidden auto;overflow-wrap:break-word;word-wrap:break-word;font:16px/1.4 Helvetica,Arial,sans-serif;color:#333}body,html,table tr{background-color:#fff}.highlight pre,code,pre,tt{background-color:#f8f8f8;direction:ltr!important}table tr :is(th,td){border:1px solid #ccc;text-align:left;padding:6px 13px;margin:0}strong,table tr th{font-weight:700}h1{font-size:2em;margin:.67em 0;text-align:center}h2{font-size:1.75em}h3{font-size:1.5em}h4{font-size:1.25em}h1,h2,h3,h4,h5,h6{position:relative;box-sizing:content-box;font-weight:700;padding:15px 0;line-height:1.1}h1,h2{border-bottom:1px solid #eee}hr{height:0;margin:15px 0;border:0;border-bottom:1px solid #ddd}a{color:#4183c4}a.absent{color:#c00}ol,ul{padding-left:15px;margin:0 7px}ol{list-style-type:lower-roman}table tr{border-top:1px solid #ccc;margin:0}table tr:nth-child(2n){background-color:#aaa}table tr :is(th,td) :first-child{margin-top:0}table tr :is(th,td) :last-child{margin-bottom:0}img{max-width:100%;pointer-events:none}blockquote{padding:0 15px;border-left:4px solid #ccc}';
         $header .= ($this->getOverflow() == "break" )?
         'code,tt{margin:0 2px;padding:0 5px;overflow-wrap:break-word;border:1px solid #eaeaea;border-radius:3px}tt{white-space:nowrap}':
@@ -203,9 +203,9 @@ class MDEditor
     public function createFooter()
     {
         $footer = '</div><script src="';
-        $footer .= $this->asset_highlight_min_js;
+        $footer .= $this->local_highlight_min_js;
         $footer .= '"></script><script>hljs.initHighlightingOnLoad();</script><script src="';
-        $footer .= $this->asset_mathJax_js;
+        $footer .= $this->local_mathJax_js;
         $footer .= '" type="text/javascript"></script>';
         $footer .= '<script type="text/javascript">MathJax.Hub.Config({"showProcessingMessages" : false,"messageStyle" : "none","tex2jax": { inlineMath: [ [ "$", "$" ] ] }});</script>';
         $footer .= '<script>document.addEventListener("DOMContentLoaded", ev => document.body.querySelectorAll("#container > *").forEach(elm => elm.setAttribute("dir", "auto")));</script>';
