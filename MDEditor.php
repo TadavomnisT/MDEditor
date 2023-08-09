@@ -8,12 +8,26 @@ class MDEditor
     private $document_style;
     private $document_title;
     private $local_style;
+    private $asset_mathJax_js;
+    private $asset_highlight_min_js;
+    private $asset_highlightjs_default_min_css;
+    private $local_mathJax_js;
+    private $local_highlight_min_js;
+    private $local_highlightjs_default_min_css;
+
 
     public function __construct( string $documnet_style = "toggle_darkmode_white", string $document_title = "Documnet", bool $local_style = false ) {
         $this->parser = new Parsedown();
         $this->documnet_style   = $documnet_style;  //Default value
         $this->document_title   = $document_title;  //Default value
         $this->local_style      = $local_style;     //Default value
+        $this->asset_mathJax_js                     = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/MathJax.js";
+        $this->asset_highlight_min_js               = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/js/highlight.min.js";
+        $this->asset_highlightjs_default_min_css    = "https://raw.githubusercontent.com/TadavomnisT/MDEditor/main/assets/css/highlightjs.default.min.css";
+        $this->local_mathJax_js                     = "./assets/js/MathJax.js";
+        $this->local_highlight_min_js               = "./assets/js/highlight.min.js";
+        $this->local_highlightjs_default_min_css    = "./assets/css/highlightjs.default.min.css";
+
     }
 
     public function md2html(string $md_file_path)
@@ -89,8 +103,11 @@ class MDEditor
     //Creates first part of HTML 
     public function createHeader()
     {
-        $header = '<!DOCTYPE HTML><html> <head>  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  <meta charset="utf-8"/>  <title>';
+        $header = '<!DOCTYPE HTML><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta charset="utf-8"/><title>';
         $header .= $this->getDocumnetTitle();
+        $header .= '</title> <link href="';
+        $header .= $this->asset_highlightjs_default_min_css;
+        $header .= '"stylesheet"/><style type="text/css">';
     }
 
     //Creates last part of HTML
