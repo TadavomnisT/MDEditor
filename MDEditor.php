@@ -41,7 +41,9 @@ class MDEditor
         if (!file_exists( $md_file_path ))
             throw new Exception("File does not exist.", 1);
         $markdown = file_get_contents( $md_file_path );
-        return  $this->createHeader() . $this->parser->text($markdown) . $this->createFooter(); //HTML
+        $raw_html = $this->parser->text($markdown);
+        $html_body = nl2br( $raw_html );
+        return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
     }
 
     //Getter for $document_style
@@ -144,7 +146,6 @@ class MDEditor
         Valid inputs:
                        "scroll" 
                        "break" 
-
     */
     public function setOverflow( string $overflow )
     {
