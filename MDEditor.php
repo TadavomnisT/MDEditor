@@ -42,8 +42,29 @@ class MDEditor
             throw new Exception("File does not exist.", 1);
         $markdown = file_get_contents( $md_file_path );
         $raw_html = $this->parser->text($markdown);
-        $html_body = nl2br( $raw_html );
+        $html_body = $this->ApplyNl2br( $raw_html );
         return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
+    }
+
+    // Only performs nl2br() on non-code contents
+    public function ApplyNl2br(string $raw_html)
+    {
+        if ( strpos( $raw_html, "<pre>" ) === false )
+            return nl2br( $raw_html );
+        
+        $array = explode( "<pre>" , $raw_html );
+        foreach ($array as $key => $value) {
+            $array[ $key ] = explode( "</pre>" , $value );
+        }
+        for ($i=1; $i < count( $array ) ; $i++) { 
+            $array[ $i ][1] = nl2br($array[ $i ][1]);
+        }
+        foreach ($array as $key => $value) {
+            $array[ $key ] = implode( "</pre>" , $value );
+        }
+        $html = implode( "<pre>" , $array );
+
+        return $html;
     }
 
     //Getter for $document_style
