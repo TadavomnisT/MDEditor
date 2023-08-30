@@ -46,26 +46,48 @@ class MDEditor
         return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
     }
 
-    // Only performs nl2br() on non-code contents
+    // Only performs nl2br() on Paragraphs
     public function ApplyNl2br(string $raw_html)
     {
-        if ( strpos( $raw_html, "<pre>" ) === false )
-            return nl2br( $raw_html );
-        
-        $array = explode( "<pre>" , $raw_html );
-        foreach ($array as $key => $value) {
-            $array[ $key ] = explode( "</pre>" , $value );
-        }
-        for ($i=1; $i < count( $array ) ; $i++) { 
-            $array[ $i ][1] = nl2br($array[ $i ][1]);
-        }
-        foreach ($array as $key => $value) {
-            $array[ $key ] = implode( "</pre>" , $value );
-        }
-        $html = implode( "<pre>" , $array );
+        $stack = [];
 
-        return $html;
+        // Iterate HTML content by tags
+        $array = explode( ">" , $raw_html );
+        foreach ($array as $key => $value) {
+            // Pushes
+            if ( strpos( $value, "<pre" ) !== false )
+                $stack[] = "pre";
+            if ( strpos( $value, "<table" ) !== false )
+                $stack[] = "table";
+            if ( strpos( $value, "<ul" ) !== false )
+                $stack[] = "ul";
+
+            if( empty( $stack ) )
+                $array[ $key ] = nl2br( $value );
+
+            if ( strpos( $value, "</pre" ) !== false )
+                $stack = $this->popStack( $stack, "pre" );
+            if ( strpos( $value, "</table" ) !== false )
+                $stack = $this->popStack( $stack, "table" );
+            if ( strpos( $value, "</ul" ) !== false )
+                $stack = $this->popStack( $stack, "ul" );
+        }
+
+        return implode( ">" , $array );
     }
+    // Pops a tag from stack
+    public function popStack(array $stack, string $tagName)
+    {
+        $stack = array_reverse($stack);
+        foreach ($stack as $key => $value)
+            if ( $value == $tagName )
+            {
+                unset($stack[ $key ]);
+                break;
+            }
+        return array_reverse($stack);
+    }
+
 
     //Getter for $document_style
     public function getDocumentStyle()
