@@ -19,7 +19,7 @@ _______________________________________________________________________
 |toggle_darkmodegray_dark|
 
 **This project is powered by:**
-* Parsdown : [https://github.com/jamiemcg/Remarkable](https://github.com/erusev/parsedown)
+* Parsdown : https://github.com/erusev/parsedown
 
 
 **Inspiration:**
