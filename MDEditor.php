@@ -1,6 +1,9 @@
 <?php
 
-require_once "./includes/Parsedown.php";
+require_once "./includes/parsedown/Parsedown.php";
+require_once "./includes/mpdf/vendor/autoload.php";
+require_once "./includes/html2text/Html2Text.php";
+require_once "./includes/Text_LanguageDetect/Text/LanguageDetect.php";
 
 class MDEditor
 {
@@ -263,6 +266,51 @@ class MDEditor
         $footer .= '</body></html>';
 
         return $footer;
+    }
+
+    public function html2pdf(string $htmlFile, string $exportFileName = NULL, bool $removeToggleBtn = TRUE)
+    {
+        $html = file_get_contents( $htmlFile );
+        
+        $cwd = getcwd();
+        chdir( dirname(realpath( $htmlFile )) );
+
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
+        $mpdf->autoLangToFont = true;
+        $mpdf->autoScriptToLang = true;
+        $mpdf->showImageErrors = true;
+        $mpdf->SetDisplayMode("fullpage");
+        if($removeToggleBtn) $html = $this->removeToggleBtn( $html );
+
+        $html2text = new \Html2Text\Html2Text( $html );@
+
+        $ld = new Text_LanguageDetect();
+        $language = $ld->detectSimple( $html2text->getText() );
+
+        if ($language == "farsi" || $language == "arabic") {
+            // TODO: Add support of Hebrew
+            $mpdf->SetDirectionality('rtl');
+        }
+        
+        @$mpdf->WriteHTML( $html );
+
+        ob_start();
+        $mpdf->Output();
+        $pdf = ob_get_clean();
+
+        chdir($cwd);
+
+        if( $exportFileName !== NULL )
+        {
+            file_put_contents( $exportFileName, $pdf );
+            return $exportFileName;
+        }
+        return $pdf;
+    }
+
+    public function removeToggleBtn( string $html )
+    {
+        return str_replace( '<label class="toggle"><input class="toggle-checkbox" type="checkbox" id="dark-mode-toggle"><div class="toggle-switch"></div><span class="toggle-label">Dark mode</span></label>' , '', $html );
     }
 }
 
