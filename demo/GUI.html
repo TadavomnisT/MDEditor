@@ -13,7 +13,11 @@
     <div id="toolbar" style="height: 80px; max-height:80px; background-color:rgb(71, 29, 45)">
       <img src="../docs/images/MDEditor_logo.png" style="height: 100%;" alt="MDEditor-Logo" >
     </div>
-    <div id="preview" style="float: left; background-color:dimgrey; "><br></div>
+    <div id="preview" style="float: left;">
+    <!-- <iframe src="iframe.html" frameborder="2"></iframe> -->
+          <span class="button" style=" background-color: dimgray; width: 100%;">HTML Preview</span>
+            <iframe id="iframe" src="./iframe.html" style="width: 100%; height: calc(100vh - 115px); border: 1px dashed black;"></iframe>
+    </div>
     <div id="textarea" style="float: left; background-color:slategray; "><div class="form form-stacked">
       <div class="form-block">
         <div class="form-controls">
@@ -32,6 +36,7 @@
   <script>
     
     function swapWidthHeight() {
+        var iframe = document.getElementById('iframe');
         var textarea = document.getElementById('textarea');
         var textarea_main = document.querySelector('.form .textarea-tall');
         var preview = document.getElementById('preview');
@@ -51,7 +56,9 @@
             preview.style.height = 'calc(50vh - 40px)';
             preview.style.maxHeight = 'calc(50vh - 40px)';
             textarea_main.style.height = 'calc(50vh - 80px)';
-            textarea_main.style.height = 'calc(50vh - 80px)';
+            textarea_main.style.maxHeight = 'calc(50vh - 80px)';
+            iframe.style.height = 'calc(50vh - 75px)';
+            iframe.style.maxHeight = 'calc(50vh - 75px)';
         } else {
             var parentDiv = preview.parentNode;
             parentDiv.insertBefore(textarea, preview);
@@ -66,6 +73,8 @@
             preview.style.maxHeight = 'calc(100vh - 80px)';
             textarea_main.style.height = 'calc(100vh - 150px)';
             textarea_main.style.maxHeight = 'calc(100vh - 150px)';
+            iframe.style.height = 'calc(100vh - 115px)';
+            iframe.style.maxHeight = 'calc(100vh - 115px)';
         }
     }
     swapWidthHeight();
