@@ -34,6 +34,7 @@ _______________________________________________________________________
 * Mpdf : https://github.com/mpdf/mpdf
 * Html2Text : https://github.com/mtibben/html2text
 * Text_LanguageDetect : https://github.com/pear/Text_LanguageDetect
+* CodeHive's simple markdown WYSIWYG toolbar : https://codepen.io/michaellee/pen/JdbqGW
 
 **Inspiration:**
 * Remarkable : https://github.com/jamiemcg/Remarkable
