@@ -1,0 +1,131 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.5;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.form {
+  font-size: 1rem;
+}
+.form input[type=text], .form input[type=email], .form input[type=password],
+.form textarea {
+  background: #F5F5F5;
+  border-color: #D8D8D8;
+  border-style: solid;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-width: 1px;
+  box-shadow: none;
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.75rem;
+  -webkit-appearance: none;
+}
+.form input[type=text]:focus, .form input[type=email]:focus, .form input[type=password]:focus,
+.form textarea:focus {
+  background: #FFF;
+  border-color: #338EDA;
+  outline: 0;
+}
+.form textarea, .form .textarea {
+  min-height: 150px;
+}
+.form input[type=submit]:focus {
+  border: none;
+  outline: 0;
+}
+.form .textarea-tall {
+  min-height: 300px;
+}
+
+.form-stacked input[type=text], .form-stacked input[type=email], .form-stacked input[type=password],
+.form-stacked textarea {
+  display: block;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.form-block {
+  position: relative;
+}
+
+.form textarea {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-controls {
+  padding: 0 0.75rem;
+  border-top: 1px solid #D8D8D8;
+  border-left: 1px solid #D8D8D8;
+  border-right: 1px solid #D8D8D8;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.form-controls .button {
+  padding: 0 1rem;
+  font-size: 1.125rem;
+}
+.form-controls .button:hover {
+  color: #338EDA;
+}
+
+.button {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  min-height: 2rem;
+  line-height: 2rem;
+  font-size: 0.875em;
+  font-family: inherit;
+  text-decoration: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  padding: 0 0.75rem;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.note {
+  background: #D8D8D8;
+  font-size: 0.825rem;
+  width: 250px;
+  padding: 1.5rem;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  position: fixed;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+}
+.note a {
+  color: #338EDA;
+}
