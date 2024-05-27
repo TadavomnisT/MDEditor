@@ -33,6 +33,7 @@
     
     function swapWidthHeight() {
         var textarea = document.getElementById('textarea');
+        var textarea_main = document.querySelector('.form .textarea-tall');
         var preview = document.getElementById('preview');
         var screenWidth = window.innerWidth;
         var screenHeight = window.innerHeight;
@@ -45,10 +46,12 @@
             textarea.style.maxWidth =  '100%';
             preview.style.width =  '100%';
             preview.style.maxWidth =  '100%';
-            textarea.style.height = 'calc(50vh - 50px)';
-            textarea.style.maxHeight = 'calc(50vh - 50px)';
-            preview.style.height = 'calc(50vh - 50px)';
-            preview.style.maxHeight = 'calc(50vh - 50px)';
+            textarea.style.height = 'calc(50vh - 40px)';
+            textarea.style.maxHeight = 'calc(50vh - 40px)';
+            preview.style.height = 'calc(50vh - 40px)';
+            preview.style.maxHeight = 'calc(50vh - 40px)';
+            textarea_main.style.height = 'calc(50vh - 80px)';
+            textarea_main.style.height = 'calc(50vh - 80px)';
         } else {
             var parentDiv = preview.parentNode;
             parentDiv.insertBefore(textarea, preview);
@@ -61,6 +64,8 @@
             textarea.style.maxHeight = 'calc(100vh - 80px)';
             preview.style.height = 'calc(100vh - 80px)';
             preview.style.maxHeight = 'calc(100vh - 80px)';
+            textarea_main.style.height = 'calc(100vh - 150px)';
+            textarea_main.style.maxHeight = 'calc(100vh - 150px)';
         }
     }
     swapWidthHeight();
