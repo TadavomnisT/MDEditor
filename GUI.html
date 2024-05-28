@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../assets/css/normalize.min.css">
+  <link rel='stylesheet' href='../assets/css/ionicons.min.css'>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div style="height: 100vh; max-height:100%;" >
+    <div id="toolbar" style="height: 80px; max-height:80px; background-color:rgb(71, 29, 45)">
+      <img src="../docs/images/MDEditor_logo.png" style="height: 100%;" alt="MDEditor-Logo" >
+    </div>
+    <div id="preview" style="float: left;">
+          <span class="button" style=" background-color: dimgray; width: 100%;">HTML Preview</span>
+            <iframe id="iframe" name="iframe" src="../assets/html/iframe.html" style="width: 100%; height: calc(100vh - 115px); border: 1px dashed black;"></iframe>
+    </div>
+    <div id="textarea" style="float: left; background-color:slategray; ">
+      <div class="form form-stacked">
+        <div class="form-block">
+          <div class="form-controls">
+            <form action="" method="post" target="iframe">
+              <span class="button ion-code" title="Code block <pre><code>" data-button-type="addCode"></span>
+                <span class="button ion-code-working" title="Inline code <code>" data-button-type="addInlineCode"></span>
+                <span class="button" title="Strong <strong>" data-button-type="addStrong"><strong>b</strong></span>
+                <span class="button" title="Emphasis <em>" data-button-type="addEmphasis"><strong><em>i</em></strong></span>
+                <span class="button ion-link" title="Link <a>" data-button-type="addLink"></span>
+                <span class="button ion-social-codepen-outline" title="Embed CodePen pen" data-button-type="embedCodePen"></span>
+                <textarea placeholder="Start writing here..." class="textarea-tall" id="board_content"></textarea>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    function swapWidthHeight() {
+        var iframe = document.getElementById('iframe');
+        var textarea = document.getElementById('textarea');
+        var textarea_main = document.querySelector('.form .textarea-tall');
+        var preview = document.getElementById('preview');
+        var screenWidth = window.innerWidth;
+        var screenHeight = window.innerHeight;
+
+        if (screenHeight > screenWidth) {
+            var parentDiv = textarea.parentNode;
+            parentDiv.insertBefore(preview, textarea);
+            
+            textarea.style.width =  '100%';
+            textarea.style.maxWidth =  '100%';
+            preview.style.width =  '100%';
+            preview.style.maxWidth =  '100%';
+            textarea.style.height = 'calc(50vh - 40px)';
+            textarea.style.maxHeight = 'calc(50vh - 40px)';
+            preview.style.height = 'calc(50vh - 40px)';
+            preview.style.maxHeight = 'calc(50vh - 40px)';
+            textarea_main.style.height = 'calc(50vh - 80px)';
+            textarea_main.style.maxHeight = 'calc(50vh - 80px)';
+            iframe.style.height = 'calc(50vh - 75px)';
+            iframe.style.maxHeight = 'calc(50vh - 75px)';
+        } else {
+            var parentDiv = preview.parentNode;
+            parentDiv.insertBefore(textarea, preview);
+            
+            textarea.style.width = '50%';
+            textarea.style.maxWidth = '50%';
+            preview.style.width = '50%';
+            preview.style.maxWidth = '50%';
+            textarea.style.height = 'calc(100vh - 80px)';
+            textarea.style.maxHeight = 'calc(100vh - 80px)';
+            preview.style.height = 'calc(100vh - 80px)';
+            preview.style.maxHeight = 'calc(100vh - 80px)';
+            textarea_main.style.height = 'calc(100vh - 150px)';
+            textarea_main.style.maxHeight = 'calc(100vh - 150px)';
+            iframe.style.height = 'calc(100vh - 115px)';
+            iframe.style.maxHeight = 'calc(100vh - 115px)';
+        }
+    }
+    swapWidthHeight();
+    window.addEventListener('resize', swapWidthHeight);
+
+    function updateIframeContent() {
+      var iframe = document.getElementById('iframe');
+      var textarea = document.getElementById('board_content');
+      var currentUrl = window.location.href;
+
+      fetch(currentUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ MarkDownData: textarea.value })
+      })
+      .then(response => {
+          if (response.ok) {
+              iframe.src = currentUrl + '?getIframe=1';
+          } else {
+              console.error('Failed to post textarea data');
+          }
+      })
+      .catch(error => console.error('Error posting textarea data:', error));
+    }
+    var textarea = document.getElementById('board_content');
+    textarea.addEventListener('input', updateIframeContent);
+
+  </script>
+  <script src='../assets/js/jquery.min.js'></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>
