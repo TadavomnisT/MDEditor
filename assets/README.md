@@ -47,4 +47,67 @@ License:
 
 https://github.com/jamiemcg/Remarkable/blob/master/LICENSE
 
+## jquery.min.js
 
+This file is retrieved from : https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
+
+License:
+```
+/*! jQuery v2.1.3 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
+```
+
+## jquery.min.map
+
+This file is retrieved from : https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.map
+
+License:
+```
+/*! jQuery v2.1.3 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
+```
+
+## normalize.min.css
+
+This file is retrieved from : https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css
+
+## normalize.min.css.map
+
+https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css.map
+
+## ionicons.min.css
+
+This file is retrieved from : https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
+
+License:
+```
+  Ionicons, v2.0.1
+  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
+  https://twitter.com/benjsperry  https://twitter.com/ionicframework
+  MIT License: https://github.com/driftyco/ionicons
+
+  Android-style icons originally built by Google’s
+  Material Design Icons: https://github.com/google/material-design-icons
+  used under CC BY http://creativecommons.org/licenses/by/4.0/
+  Modified icons to fit ionicon’s grid from original.
+```
+
+## ionicons.ttf
+
+This file is retrieved from : https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.ttf?v=2.0.1
+
+Version:
+```
+2.0.1
+```
+
+License:
+```
+  Ionicons, v2.0.1
+  Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
+  https://twitter.com/benjsperry  https://twitter.com/ionicframework
+  MIT License: https://github.com/driftyco/ionicons
+
+  Android-style icons originally built by Google’s
+  Material Design Icons: https://github.com/google/material-design-icons
+  used under CC BY http://creativecommons.org/licenses/by/4.0/
+  Modified icons to fit ionicon’s grid from original.
+```
