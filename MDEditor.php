@@ -38,12 +38,20 @@ class MDEditor
 
     }
 
-    //Converts Markdown to HTML
+    //Converts Markdown file to HTML
     public function md2html(string $md_file_path)
     {
         if (!file_exists( $md_file_path ))
             throw new Exception("File does not exist.", 1);
         $markdown = file_get_contents( $md_file_path );
+        $raw_html = $this->parser->text($markdown);
+        $html_body = $this->ApplyNl2br( $raw_html );
+        return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
+    }
+
+    //Converts Markdown data to HTML
+    public function mddata2html(string $markdown)
+    {
         $raw_html = $this->parser->text($markdown);
         $html_body = $this->ApplyNl2br( $raw_html );
         return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
