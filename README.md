@@ -4,6 +4,42 @@
 
 A free and opensource MarkDown editor, with the support of exporting HTML and PDF.
 
+## Installation
+
+**Automatic installation and running in GNU/Linux:**
+
+Installation:
+```
+git clone https://github.com/TadavomnisT/MDEditor.git
+chmod +x start_gui.sh
+```
+Running GUI:
+```
+./start_gui.sh
+```
+
+----------------------------
+
+**Installing and running manually:**
+
+* Download the source-code:
+```
+git clone https://github.com/TadavomnisT/MDEditor.git
+```
+* Using GUI:
+```
+cd MDEditor
+php -S 127.0.0.1:8989
+```
+Then open the url `http://127.0.0.1:8989/` with a browser.
+* Using as library:
+
+Just include `MDEditor.php` and use it:
+```php
+require_once "MDEditor.php";
+$mde = new MDEditor;
+```
+
 ## Todo-List
 + Add support of Mediawiki
 + Add Sizes for html in GUI
