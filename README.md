@@ -101,6 +101,7 @@ file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocument
 + Make Headings HyperLink-able by HTML#
 + Fix HTML code and table color problems
 + Add font Embedding feature
++ Add darkmode for GUI
 
 
 ## Available document styles
