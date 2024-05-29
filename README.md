@@ -20,6 +20,7 @@ Running GUI:
 
 ----------------------------
 
+
 **Installing and running manually:**
 
 * Download the source-code:
@@ -39,6 +40,21 @@ Just include `MDEditor.php` and use it:
 require_once "MDEditor.php";
 $mde = new MDEditor;
 ```
+
+## Screenshots
+
+
+* Desktop GUI:
+
+![image](https://github.com/TadavomnisT/MDEditor/assets/63199745/fe786b4a-461d-46d1-a6ec-d3ff258ac153)
+![image](https://github.com/TadavomnisT/MDEditor/assets/63199745/2a67e6cf-d062-4a66-a9c0-d6e19df40f01)
+
+
+* Resposive Mobile GUI:
+
+![image](https://github.com/TadavomnisT/MDEditor/assets/63199745/726fcd3c-8d61-4c18-ae08-43854d2939a0)
+![image](https://github.com/TadavomnisT/MDEditor/assets/63199745/9cbe101d-4916-4fb1-916c-4655665bb116)
+
 
 ## Library API
 
