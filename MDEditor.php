@@ -57,6 +57,36 @@ class MDEditor
         return  $this->createHeader() . $html_body . $this->createFooter(); //HTML
     }
 
+    //Converts Markdown data to PDF
+    public function mddata2pdf(string $markdown)
+    {
+        $html = $this->mddata2html( $markdown );
+
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
+        $mpdf->autoLangToFont = true;
+        $mpdf->autoScriptToLang = true;
+        $mpdf->showImageErrors = true;
+        $mpdf->SetDisplayMode("fullpage");
+
+        $html2text = new \Html2Text\Html2Text( $html );@
+
+        $ld = new Text_LanguageDetect();
+        $language = $ld->detectSimple( $html2text->getText() );
+
+        if ($language == "farsi" || $language == "arabic") {
+            // TODO: Add support of Hebrew
+            $mpdf->SetDirectionality('rtl');
+        }
+        
+        @$mpdf->WriteHTML( $html );
+
+        ob_start();
+        $mpdf->Output();
+        $pdf = ob_get_clean();
+
+        return $pdf;
+    }
+
     // Only performs nl2br() on Paragraphs
     public function ApplyNl2br(string $raw_html)
     {
@@ -276,6 +306,7 @@ class MDEditor
         return $footer;
     }
 
+    //Converts HTML file to PDF
     public function html2pdf(string $htmlFile, string $exportFileName = NULL, bool $removeToggleBtn = TRUE)
     {
         $html = file_get_contents( $htmlFile );
@@ -316,6 +347,7 @@ class MDEditor
         return $pdf;
     }
 
+    //Removes toggle button from html data
     public function removeToggleBtn( string $html )
     {
         return str_replace( '<label class="toggle"><input class="toggle-checkbox" type="checkbox" id="dark-mode-toggle"><div class="toggle-switch"></div><span class="toggle-label">Dark mode</span></label>' , '', $html );

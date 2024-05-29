@@ -14,10 +14,10 @@
     <div id="toolbar" style="height: 80px; max-height:80px; background-color:rgb(71, 29, 45)">
       <img src="../docs/images/MDEditor_logo.png" style="height: 100%; float: left;" alt="MDEditor-Logo" >
       <span id="brealkine"><br></span>
-      <button style="background-color: lightblue; color: blue; padding: 4px 8px; border: none; border-radius: 5px;">💾PDF</button>
-      <button style="background-color: lightgreen; color: darkgreen; padding: 4px 8px; border: none; border-radius: 5px;">💾HTML</button>
-      <button style="background-color: pink; color: purple; padding: 4px 8px; border: none; border-radius: 5px;">💾Markdown</button>
-      <button style="background-color: lightcoral; color: darkred; padding: 4px 8px; border: none; border-radius: 5px;">💾MediaWiki</button>
+      <button style="background-color: lightblue; color: blue; padding: 4px 8px; border: none; border-radius: 5px; cursor: pointer;" onclick="handlePDFExport()">💾PDF</button>
+      <button style="background-color: lightgreen; color: darkgreen; padding: 4px 8px; border: none; border-radius: 5px; cursor: pointer;" onclick="handleHTMLExport()">💾HTML</button>
+      <button style="background-color: pink; color: purple; padding: 4px 8px; border: none; border-radius: 5px; cursor: pointer;" onclick="handleMarkdownExport()">💾Markdown</button>
+      <button style="background-color: lightcoral; color: darkred; padding: 4px 8px; border: none; border-radius: 5px;" onclick="handleMediaWikiExport()" disabled><del>💾MediaWiki</del></button>
     </div>
     <div id="preview" style="float: left;">
           <span class="button" style=" background-color: dimgray; width: 100%;">HTML Preview</span>
@@ -34,7 +34,7 @@
                 <span class="button" title="Emphasis <em>" data-button-type="addEmphasis"><strong><em>i</em></strong></span>
                 <span class="button ion-link" title="Link <a>" data-button-type="addLink"></span>
                 <span class="button ion-social-codepen-outline" title="Embed CodePen pen" data-button-type="embedCodePen"></span>
-                <textarea placeholder="Start writing some MarkDown here..." class="textarea-tall" id="board_content"></textarea>
+                <textarea placeholder="Start writing some Markdown in here..." class="textarea-tall" id="board_content"></textarea>
             </form>
           </div>
         </div>
@@ -114,6 +114,94 @@
     }
     var textarea = document.getElementById('board_content');
     textarea.addEventListener('input', updateIframeContent);
+
+    function handlePDFExport() {
+      var textarea = document.getElementById('board_content');
+      var currentUrl = window.location.href;
+
+      fetch(currentUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ MarkDownData: textarea.value })
+      })
+      .then(response => {
+          if (response.ok) {
+              window.open(currentUrl + '?getPDF=1', '_blank');
+          } else {
+              console.error('Failed to post textarea data');
+          }
+      })
+      .catch(error => console.error('Error posting textarea data:', error));
+      console.log('Exporting PDF');
+    }
+
+    function handleHTMLExport() {
+      var textarea = document.getElementById('board_content');
+      var currentUrl = window.location.href;
+
+      fetch(currentUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ MarkDownData: textarea.value })
+      })
+      .then(response => {
+          if (response.ok) {
+              window.open(currentUrl + '?getHTML=1', '_blank');
+          } else {
+              console.error('Failed to post textarea data');
+          }
+      })
+      .catch(error => console.error('Error posting textarea data:', error));
+      console.log('Exporting HTML');
+    }
+
+    function handleMarkdownExport() {
+      var textarea = document.getElementById('board_content');
+      var currentUrl = window.location.href;
+
+      fetch(currentUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ MarkDownData: textarea.value })
+      })
+      .then(response => {
+          if (response.ok) {
+              window.open(currentUrl + '?getMarkdown=1', '_blank');
+          } else {
+              console.error('Failed to post textarea data');
+          }
+      })
+      .catch(error => console.error('Error posting textarea data:', error));
+      console.log('Exporting Markdown');
+    }
+
+    function handleMediaWikiExport() {
+      var textarea = document.getElementById('board_content');
+      var currentUrl = window.location.href;
+
+      fetch(currentUrl, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ MarkDownData: textarea.value })
+      })
+      .then(response => {
+          if (response.ok) {
+              window.open(currentUrl + '?getMediawiki=1', '_blank');
+          } else {
+              console.error('Failed to post textarea data');
+          }
+      })
+      .catch(error => console.error('Error posting textarea data:', error));
+      console.log('Exporting Mediawiki');
+    }
 
   </script>
   <script src='../assets/js/jquery.min.js'></script>
