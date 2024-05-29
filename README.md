@@ -11,6 +11,7 @@ A free and opensource MarkDown editor, with the support of exporting HTML and PD
 Installation:
 ```
 git clone https://github.com/TadavomnisT/MDEditor.git
+cd MDEditor
 chmod +x start_gui.sh
 ```
 Running GUI:
