@@ -7,10 +7,15 @@ A free and opensource MarkDown editor, with the support of exporting HTML and PD
 ** WIP **
 
 ## Todo-List:
-+ Add GUI
++ Add support of Mediawiki
++ Add Sizes for html in GUI
 + Add support of Hebrew
++ Make Headings HyperLink-able by HTML#
++ Fix HTML code and table color problems
++ Add font Embedding feature
 
-_______________________________________________________________________
+
+## Available document styles
 
 |Available document styles:|
 |--------|
@@ -28,6 +33,9 @@ _______________________________________________________________________
 |toggle_darkmodeblack_dark_960px|
 |toggle_darkmodegray_dark|
 |toggle_darkmodegray_dark_960px|
+
+
+## Acknowledgements
 
 **This project is powered by:**
 * Parsdown : https://github.com/erusev/parsedown
