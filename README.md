@@ -4,9 +4,7 @@
 
 A free and opensource MarkDown editor, with the support of exporting HTML and PDF.
 
-** WIP **
-
-## Todo-List:
+## Todo-List
 + Add support of Mediawiki
 + Add Sizes for html in GUI
 + Add support of Hebrew
@@ -46,6 +44,11 @@ A free and opensource MarkDown editor, with the support of exporting HTML and PD
 
 **Inspiration:**
 * Remarkable : https://github.com/jamiemcg/Remarkable
+  
+**Contributors:**
+* [@Tadavomnist](https://github.com/TadavomnisT) (behrad.b)
+* [@hctilg](https://github.com/hctilg) (Mahi)
+* [@amiria703](https://github.com/amiria703) (Amir Hossein "Amiria" Maher)
 
 ## License:
 
