@@ -40,6 +40,43 @@ require_once "MDEditor.php";
 $mde = new MDEditor;
 ```
 
+## Library API
+
+Please refer to `./test` directory for more examples.
+```php
+<?php
+
+require_once "MDEditor.php";
+$mde = new MDEditor;
+
+$mde->setDocumentStyle("light");
+$html = $mde->md2html( "./tests/sample.md" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html", $html);
+$pdf = $mde->html2pdf( "./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".pdf", $pdf);
+
+$mde->setDocumentStyle("dark_black");
+$html = $mde->md2html( "./tests/sample.md" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html", $html);
+$pdf = $mde->html2pdf( "./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".pdf", $pdf);
+
+$mde->setDocumentStyle("toggle_darkmodeblack_dark");
+$html = $mde->md2html( "./tests/sample.md" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html", $html);
+$pdf = $mde->html2pdf( "./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".pdf", $pdf);
+
+$mde->setDocumentWidth(960);
+
+$mde->setDocumentStyle("toggle_darkmodegray_white");
+$html = $mde->md2html( "./tests/sample.md" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html", $html);
+$pdf = $mde->html2pdf( "./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".html" );
+file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocumentWidth() . ".pdf", $pdf);
+?>
+```
+
 ## Todo-List
 + Add support of Mediawiki
 + Add Sizes for html in GUI
