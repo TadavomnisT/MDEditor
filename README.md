@@ -19,6 +19,12 @@ Running GUI:
 ./start_gui.sh
 ```
 
+Requirements:
+
+* `php` : e.g install with `sudo apt install php`
+* `php-mbstring` extentions: e.g install with `sudo apt install php-mbstring` or uncomment `extention=php_mbstring.dll` in `php.ini` file for Windows.
+
+
 ----------------------------
 
 
