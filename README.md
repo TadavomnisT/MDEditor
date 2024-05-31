@@ -8,39 +8,48 @@ A free and opensource MarkDown editor, with the support of exporting HTML and PD
 
 **Automatic installation and running in GNU/Linux:**
 
-Installation:
+Installing Requirements:
+
+* `php` : e.g install with `sudo apt install php`
+* `php-mbstring` extention: e.g install with `sudo apt install php-mbstring` or uncomment `extention=php_mbstring.dll` in `php.ini` file for Windows.
+
+Installing Project:
 ```
 git clone https://github.com/TadavomnisT/MDEditor.git
 cd MDEditor
 chmod +x start_gui.sh
 ```
+
 Running GUI:
 ```
 ./start_gui.sh
 ```
-
-Requirements:
-
-* `php` : e.g install with `sudo apt install php`
-* `php-mbstring` extention: e.g install with `sudo apt install php-mbstring` or uncomment `extention=php_mbstring.dll` in `php.ini` file for Windows.
-
 
 ----------------------------
 
 
 **Installing and running manually:**
 
+* Install the requirements:
+```
+sudo apt install php
+sudo apt install php-mbstring
+```
+
 * Download the source-code:
 ```
 git clone https://github.com/TadavomnisT/MDEditor.git
 ```
-* Using GUI:
+
+* Start GUI:
 ```
 cd MDEditor
 php -S 127.0.0.1:8989
 ```
 Then open the url `http://127.0.0.1:8989/` with a browser.
-* Using as library:
+
+
+* **Using as library**:
 
 Just include `MDEditor.php` and use it:
 ```php
