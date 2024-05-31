@@ -14,14 +14,14 @@ Installing Requirements:
 * `php-mbstring` extention: e.g install with `sudo apt install php-mbstring` or uncomment `extention=php_mbstring.dll` in `php.ini` file for Windows.
 
 Installing Project:
-```
+```shell
 git clone https://github.com/TadavomnisT/MDEditor.git
 cd MDEditor
 chmod +x start_gui.sh
 ```
 
 Running GUI:
-```
+```shell
 ./start_gui.sh
 ```
 
@@ -31,18 +31,18 @@ Running GUI:
 **Installing and running manually:**
 
 * Install the requirements:
-```
+```shell
 sudo apt install php
 sudo apt install php-mbstring
 ```
 
 * Download the source-code:
-```
+```shell
 git clone https://github.com/TadavomnisT/MDEditor.git
 ```
 
 * Start GUI:
-```
+```shell
 cd MDEditor
 php -S 127.0.0.1:8989
 ```
