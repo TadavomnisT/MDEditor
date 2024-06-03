@@ -117,6 +117,7 @@ file_put_contents("./tests/test_" . $mde->getDocumentStyle() . $mde->getDocument
 + Fix HTML code and table color problems
 + Add font Embedding feature
 + Add darkmode for GUI
++ Add Drag/Drop option for GUI
 
 
 ## Available document styles
