@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start the PHP server in the MDEditor directory
-cd MDEditor
+# cd MDEditor
 php -S 127.0.0.1:8989 &
 
 # Open the URL in a browser
